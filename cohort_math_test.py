@@ -1,45 +1,58 @@
 import cohort_math_activations as cm
 
-def append_str(floats):
-	return ','.join([str(f) for f in floats])
-
-mingain = cm.get_info_gain(
+mingain, _ = cm.get_info_gain(
 	input_word='hello',
-	activations=[['hello'], [0.5]],
+	activations=[['hello', 0.5]],
 	should_recenter=False,
 	aggregator=cm.sum,
 	maxval = 5)
 print str(mingain)
 
-maxgain_list = cm.get_info_gain(
+maxgain_list, _ = cm.get_info_gain(
 	input_word='hello',
-	activations=[['xxxxx'], [0.5]],
+	activations=[['xxxxx', 0.5]],
 	should_recenter=False,
-	aggregator=append_str,
+	aggregator=cm.append_str,
 	maxval = 5)
 print str(maxgain_list)
 
-maxgain_sum = cm.get_info_gain(
+maxgain_sum, _ = cm.get_info_gain(
 	input_word='hello',
-	activations=[['xxxxx'], [0.5]],
+	activations=[['xxxxx', 0.5]],
 	should_recenter=False,
 	aggregator=cm.sum,
 	maxval = 5)
 print str(maxgain_sum)
 
-maxgain_avg = cm.get_info_gain(
+maxgain_avg, _ = cm.get_info_gain(
 	input_word='hello',
-	activations=[['xxxxx'], [0.5]],
+	activations=[['xxxxx', 0.5]],
 	should_recenter=False,
 	aggregator=cm.avg,
 	maxval = 5)
 print str(maxgain_avg)
 
-midgain_list = cm.get_info_gain(
+midgain_list, _ = cm.get_info_gain(
 	input_word='hello',
-	activations=[['xxxxx', 'hello'], [0.5, 0.5]],
+	activations=[['xxxxx', 0.5], ['hello', 0.5]],
 	should_recenter=False,
-	aggregator=append_str,
+	aggregator=cm.append_str,
 	maxval = 5)
 print str(midgain_list)
+
+midgain_list_recenter, _ = cm.get_info_gain(
+	input_word='hello',
+	activations=[['xxxxx', 0.5], ['hello', 0.5]],
+	should_recenter=True,
+	aggregator=cm.append_str,
+	maxval = 5)
+print str(midgain_list_recenter)
+
+neggain_list, _ = cm.get_info_gain(
+	input_word='hello',
+	activations=[['hello', -0.5]],
+	should_recenter=True,
+	aggregator=cm.append_str,
+	maxval = 5)
+print str(neggain_list)
 

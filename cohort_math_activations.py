@@ -9,12 +9,15 @@ Calculates an aggregate information gain (float) given the inputs:
 		to a single return value
 	maxval (float): maximum information gain possible
 		(used as the infogain function approaches infinity)
+Returns the info gain and the (non-negative) offset used for recentering
 """
 def get_info_gain(input_word, activations, should_recenter, aggregator, maxval):
 	words = [a[0] for a in activations]
 	actvals = [a[1] for a in activations]
+	
+	offset = 0.0
 	if should_recenter:
-		actvals = __recenter__(actvals)
+		actvals, offset = __recenter__(actvals)
 
 	actval_sum = numpy.sum(actvals)
 	# gains starts as a list of inverse probabilities...
@@ -34,7 +37,7 @@ def get_info_gain(input_word, activations, should_recenter, aggregator, maxval):
 			return maxval
 		return floatnum
 	gains = [maxval_ceiling(gain) for gain in numpy.log2(gains)]
-	return aggregator(gains)
+	return aggregator(gains), offset
 
 def sum(floats):
 	return numpy.sum(floats)
@@ -46,16 +49,17 @@ def append_str(floats):
 	return ','.join([str(f) for f in floats])
 
 """
-Return a recentered copy of the float list `a` such that the minimum value is positive
+Return a recentered copy of the float list `a` such that the minimum value is positive,
+and the (non-negative) offset used for recentering
 """
 def __recenter__(a):
 	minval = numpy.min(a)
 	if minval > 0.0:
-		return a
+		return a, 0.0
 	
 	epsilon = 0.01
 	offset = -1 * minval + epsilon
-	return numpy.add(a, offset)
+	return numpy.add(a, offset), offset
 
 """
 Calculate the `1/p_k` term for the information gain formula
