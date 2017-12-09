@@ -42,6 +42,9 @@ def sum(floats):
 def avg(floats):
 	return numpy.mean(floats)
 
+def append_str(floats):
+	return ','.join([str(f) for f in floats])
+
 """
 Return a recentered copy of the float list `a` such that the minimum value is positive
 """
