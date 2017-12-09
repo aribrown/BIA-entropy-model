@@ -3,7 +3,7 @@ import numpy
 """
 Calculates an aggregate information gain (float) given the inputs:
 	input_word (string): the word presented to the model
-	activations (list(string), list(float)): word unit words and their activations
+	activations (list(list(string, float))): word unit words and their activations
 	should_recenter (bool): recenter all activations such that they are nonnegative?
 	aggregator (list(float) -> float): function to transform list of per-letter info gain values
 		to a single return value
@@ -11,8 +11,8 @@ Calculates an aggregate information gain (float) given the inputs:
 		(used as the infogain function approaches infinity)
 """
 def get_info_gain(input_word, activations, should_recenter, aggregator, maxval):
-	words = activations[0]
-	actvals = activations[1]
+	words = [a[0] for a in activations]
+	actvals = [a[1] for a in activations]
 	if should_recenter:
 		actvals = __recenter__(actvals)
 
