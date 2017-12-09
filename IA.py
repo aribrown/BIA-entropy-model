@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from IA_pools import words, lets, lang, schemas, cues, Unit
 from IA_pools import lets_word_template, word_lets_template, word_si_template, word_lang_template
 from itertools import cycle
+import cohort_math_activations as cm
+import numpy as np
 
 #   biaIC.py: Implementation of the Bilingual Interactive Activation (BIA) model of word recognition incorporating
 #   Inhibitory Control
@@ -143,15 +145,18 @@ def cycle_pool():
 
         # ARI_EDIT
         curr_activations = readActivations(words)
-        # print(curr_activations)
 
         ##### calculate the information gain based on activations
 
         # params: input word, activations of lexicon, recenter bool
-        
+        info_gain, offset = cm.get_info_gain(input_word, curr_activations, True, cm.max, 100)
+        print (info_gain)
+
+        ##### scale the info gain
+        # info_gain = info_gain- np.log2(offset * len(curr_activations))
 
         ##### update the nonword unit
-        words['non-word'][0].setActivation(3.0)
+        words['non-word'][0].setActivation(info_gain)
         print(words['non-word'][0].getActivation())
 
 

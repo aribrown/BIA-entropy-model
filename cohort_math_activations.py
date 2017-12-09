@@ -45,6 +45,9 @@ def sum(floats):
 def avg(floats):
 	return numpy.mean(floats)
 
+def max(floats):
+	return numpy.max(floats)
+
 def append_str(floats):
 	return ','.join([str(f) for f in floats])
 
