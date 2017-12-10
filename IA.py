@@ -144,23 +144,13 @@ def cycle_pool():
 
 
         # ARI_EDIT
+        # calculate information gain to stimulate non-word node
+
         curr_activations = readActivations(words)
-
-        ##### calculate the information gain based on activations
-
-        # params: input word, activations of lexicon, recenter bool
         info_gain, offset = cm.get_info_gain(input_word, curr_activations, True, cm.avg, 100)
-        print (info_gain)
         scale = 0.1
-
         info_gain = info_gain * scale
-
-        ##### scale the info gain
-        # info_gain = info_gain- np.log2(offset * len(curr_activations))
-
-        ##### update the nonword unit
         words['non-word'][0].setActivation(info_gain)
-        print(words['non-word'][0].getActivation())
 
 
         act_dataset.append(readActivations(words))
