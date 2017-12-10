@@ -482,6 +482,7 @@ wine_si = [[['bag',0],si],[['bed',0],si],[['bide',0],si],[['blue',0],si],[['cat'
 #   Letter to word inhibition: Each letter unit has inhibitory connections to each of the units standing for a word that
 #   does not contain the letter in the corresponding position. Weights are negative.
 
+# ARI_EDIT
 words['non-word'] = [Unit(activation=rest)]
 
 words['azul'] = [Unit([[['a',0],w4],[['z',1],w4],[['u',2],w4],[['l',3],w4],
