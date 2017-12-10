@@ -149,8 +149,11 @@ def cycle_pool():
         ##### calculate the information gain based on activations
 
         # params: input word, activations of lexicon, recenter bool
-        info_gain, offset = cm.get_info_gain(input_word, curr_activations, True, cm.max, 100)
+        info_gain, offset = cm.get_info_gain(input_word, curr_activations, True, cm.avg, 100)
         print (info_gain)
+        scale = 0.1
+
+        info_gain = info_gain * scale
 
         ##### scale the info gain
         # info_gain = info_gain- np.log2(offset * len(curr_activations))

@@ -1,4 +1,2 @@
-n,hello
-c1
-rs,non-word
-d,non-word,hello
+n,voter
+rs,voter
